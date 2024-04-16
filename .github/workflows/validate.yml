@@ -1,0 +1,46 @@
+name: Validate
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [16.x, 18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Get npm cache directory path
+        id: npm-cache-dir-path
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            **/.vitest_cache
+            **/dist
+            ${{ steps.npm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      - name: install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm i
+      - name: run linter checks
+        run: npm run lint
+      - name: run tests
+        run: npm run coverage
+      - name: run e2e
+        run: npm run test:e2e:headless
+      - name: run build
+        run: npm run build
