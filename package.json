@@ -58,7 +58,7 @@
     "esbuild": "^0.17.18",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-vue": "^9.11.0",
+    "eslint-plugin-vue": "^9.25.0",
     "happy-dom": "^9.9.2",
     "naive-ui": "^2.34.3",
     "postcss": "^8.4.23",
