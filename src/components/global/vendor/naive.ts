@@ -17,7 +17,10 @@ import {
   NLayoutSider,
   NMenu,
   NScrollbar,
-  NSwitch
+  NSwitch,
+  NInput,
+  NCheckbox,
+  NModal
 } from 'naive-ui'
 
 export default create({
@@ -39,6 +42,9 @@ export default create({
     NLayoutSider,
     NMenu,
     NScrollbar,
-    NSwitch
+    NSwitch,
+    NInput,
+    NCheckbox,
+    NModal
   ]
 })
