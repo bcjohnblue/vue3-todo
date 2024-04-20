@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import { Task } from '@/interfaces'
 import { computed, ref, watch } from 'vue'
-import { Task } from '../../../interfaces'
 
 interface Props extends Partial<Task> {
   isModalShow: boolean

@@ -18,14 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
-import { Task } from '../../../interfaces'
+import { Task } from '@/interfaces'
+import { computed } from 'vue'
 
 const props = defineProps<Task>()
 
 const emit = defineEmits<{
-  deleteTask: [id: string]
-  editTask: [id: string]
+  deleteTask: [id: number]
+  editTask: [id: number]
   updateTask: [task: Partial<Task>]
 }>()
 

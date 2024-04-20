@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list">
-    <h1>Todo App</h1>
+    <h1>Todo List</h1>
 
     <!-- Input form to add tasks -->
     <div class="flex items-center">
@@ -14,7 +14,7 @@
     </div>
 
     <!-- List of tasks -->
-    <ul class="list">
+    <ul v-if="tasks.length" class="list">
       <TodoItem
         v-for="task in tasks"
         :key="task.id"
@@ -34,58 +34,59 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { Task } from '../../interfaces'
-import { uuidv4 } from '../../utils'
+import { onMounted, ref } from 'vue'
+import { db } from '@/db'
+import { Task } from '@/interfaces'
 import EditTodoModal from './containers/EditTodoModal.vue'
 import TodoItem from './containers/TodoItem.vue'
 
 const newTask = ref('')
-const tasks = reactive<Task[]>([
-  { id: '1', description: 'Task 1', completed: false },
-  { id: '2', description: 'Task 2', completed: true },
-  { id: '3', description: 'Task 3', completed: false }
-])
+const tasks = ref<Task[]>([])
 
-const addTask = () => {
+const getTasks = async () => {
+  const dbTasks = (await db.tasks.toArray()) as Task[]
+  tasks.value = dbTasks
+  return tasks
+}
+onMounted(() => {
+  getTasks()
+})
+
+const addTask = async () => {
   if (newTask.value.trim() !== '') {
-    tasks.push({ id: uuidv4(), description: newTask.value, completed: false })
+    await db.tasks.add({ description: newTask.value, completed: false })
     newTask.value = ''
+    await getTasks()
   }
 }
 
-const deleteTask = (id: string) => {
-  const deletedIndex = tasks.findIndex((task) => {
-    return task.id === id
-  })
-  if (deletedIndex > -1) {
-    tasks.splice(deletedIndex, 1)
-  }
+const deleteTask = async (id: number) => {
+  await db.tasks.delete(id)
+  await getTasks()
 }
 
 const isModalShow = ref(false)
 const editingTask = ref<Task | null>(null)
+const editTask = async (id: number) => {
+  const task = await db.tasks.where('id').equals(id).first()
+  if (task) {
+    editingTask.value = task as Task
+  } else {
+    editingTask.value = null
+  }
 
-const editTask = (id: string) => {
-  const target = tasks.find((task) => {
-    return task.id === id
-  })
-  editingTask.value = target || null
   isModalShow.value = true
 }
 
-const updateTask = (updatedTask: Partial<Task>) => {
-  const updatedIndex = tasks.findIndex((task) => {
-    return task.id === updatedTask.id
-  })
-
-  tasks[updatedIndex] = { ...tasks[updatedIndex], ...updatedTask }
+const updateTask = async (updatedTask: Partial<Task>) => {
+  await db.tasks.update(updatedTask.id, updatedTask)
+  await getTasks()
 }
 </script>
 
 <style lang="scss" scoped>
 .todo-list {
-  @apply w-96 mx-auto mt-20;
+  @apply w-96 mx-auto mt-12 max-w-full;
 
   h1 {
     @apply text-3xl font-bold mb-5;
