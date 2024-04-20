@@ -34,7 +34,16 @@ export default defineConfig(({ mode }) => ({
       functions: 80,
       branches: 80,
       statements: 80
-    }
+    },
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+      'test/unit/App.spec.ts',
+      'test/unit/views/HelloWorld.spec.ts'
+    ]
   },
   build: {
     sourcemap: mode === 'production' ? false : 'inline'
