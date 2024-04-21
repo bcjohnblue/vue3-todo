@@ -68,9 +68,10 @@ const deleteTask = async (id: number) => {
 const isModalShow = ref(false)
 const editingTask = ref<Task | null>(null)
 const editTask = async (id: number) => {
-  const task = await db.tasks.where('id').equals(id).first()
+  const task = tasks.value.find((task) => task.id === id)
   if (task) {
-    editingTask.value = task as Task
+    editingTask.value = task
+    /* c8 ignore next 3 */
   } else {
     editingTask.value = null
   }

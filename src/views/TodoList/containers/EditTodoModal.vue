@@ -1,7 +1,7 @@
 <template>
   <n-modal v-model:show="isModalShow" preset="card" :style="style">
     <template #header>
-      <div>Edit task</div>
+      <div data-test-id="edit-todo-modal-header">Edit task</div>
     </template>
     <n-input
       v-model:value="description"
@@ -10,8 +10,14 @@
     />
     <template #action>
       <div class="flex justify-end gap-2">
-        <n-button @click="onCancelClick"> Cancel </n-button>
-        <n-button type="primary" @click="onUpdateClick"> Update </n-button>
+        <n-button data-test-id="cancel-btn" @click="onCancelClick"> Cancel </n-button>
+        <n-button
+          type="primary"
+          data-test-id="update-btn"
+          @click="onUpdateClick"
+        >
+          Update
+        </n-button>
       </div>
     </template>
   </n-modal>

@@ -43,7 +43,8 @@ export default defineConfig(({ mode }) => ({
       '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
       'test/unit/App.spec.ts',
       'test/unit/views/HelloWorld.spec.ts'
-    ]
+    ],
+    setupFiles: ['test/unit/setup.ts']
   },
   build: {
     sourcemap: mode === 'production' ? false : 'inline'

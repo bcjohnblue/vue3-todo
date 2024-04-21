@@ -7,10 +7,10 @@
       </span>
     </div>
     <div class="flex">
-      <n-button quaternary size="small" type="error" @click="onDeleteClick">
+      <n-button quaternary size="small" type="error" data-test-id="delete-btn" @click="onDeleteClick">
         Delete
       </n-button>
-      <n-button quaternary size="small" type="info" @click="onEditClick">
+      <n-button quaternary size="small" type="info" data-test-id="edit-btn" @click="onEditClick">
         Edit
       </n-button>
     </div>
