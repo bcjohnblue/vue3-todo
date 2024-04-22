@@ -1,8 +1,10 @@
+![validation status](https://github.com/bcjohnblue/vue3-todo/actions/workflows/validate.yml/badge.svg)
+
 # Vue 3 Todo List
 
 ## Getting started
 
-- Install [node LTS](https://nodejs.org/en/download/)
+- Install [node 18](https://nodejs.org/en/download/)
 - Run `npm i` in the root dir to install all dependencies
 - Run `npm run dev` to start the local server
 
