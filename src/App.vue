@@ -1,9 +1,5 @@
 <template>
-  <TodoList />
+  <router-view />
 </template>
 
-<script setup lang="ts">
-import TodoList from '@/views/TodoList/TodoList.vue'
-</script>
-
-<style lang="scss" scoped></style>
+<script setup lang="ts"></script>

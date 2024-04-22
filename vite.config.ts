@@ -30,20 +30,11 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     coverage: {
       all: true,
-      exclude: ['*.config.{ts,js}', '**/*.d.ts', 'src/main.ts', 'dist', 'test'],
+      exclude: ['*.config.{ts,js}', '**/*.d.ts', 'src/main.ts', 'src/interfaces', 'dist', 'test'],
       functions: 80,
       branches: 80,
       statements: 80
     },
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/cypress/**',
-      '**/.{idea,git,cache,output,temp}/**',
-      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
-      'test/unit/App.spec.ts',
-      'test/unit/views/HelloWorld.spec.ts'
-    ],
     setupFiles: ['test/unit/setup.ts']
   },
   build: {

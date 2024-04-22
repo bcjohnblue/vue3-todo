@@ -6,10 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HelloWorld.vue'),
-      props: {
-        msg: 'Hello Vue 3 + TypeScript + Vite + Tailwind CSS/UI + Pinia + Vue Router'
-      }
+      component: () => import('@/views/TodoList/TodoList.vue'),
     }
   ]
 })
