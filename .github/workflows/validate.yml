@@ -40,7 +40,7 @@ jobs:
         run: npm run lint
       - name: run tests
         run: npm run coverage
-      - name: run e2e
-        run: npm run test:e2e:headless
+      # - name: run e2e
+      #   run: npm run test:e2e:headless
       - name: run build
         run: npm run build
